@@ -169,9 +169,10 @@ sudo /usr/sbin/chown root:"$share_group" "$share_path"
 sudo /bin/chmod 2770 "$share_path"
 
 if ! /bin/ls -lde "$share_path" |
-    /usr/bin/grep -Fq "group:${share_group} allow"; then
-  sudo /bin/chmod +a \
-    "group:${share_group} allow read,write,execute,delete,append,file_inherit,directory_inherit" \
+    /usr/bin/grep "group:${share_group} allow" |
+    /usr/bin/grep -q "delete_child"; then
+  sudo /bin/chmod -R +a \
+    "group:${share_group} allow list,add_file,search,add_subdirectory,delete_child,readattr,writeattr,readextattr,writeextattr,readsecurity,file_inherit,directory_inherit" \
     "$share_path"
 fi
 
