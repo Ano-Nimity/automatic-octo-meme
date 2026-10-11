@@ -4,6 +4,7 @@ mac reimaging
 Upload and run
 
 ## Repository structure
+```text
 
 .
 ├── Brewfile
@@ -12,11 +13,13 @@ Upload and run
 ├── configure.sh
 └── scripts/
     └── common.sh
+```
 
 Complete Setup Assistant, skip Apple ID, create the administrator account, connect Ethernet, then run:
 
-
+```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ano-Nimity/automatic-octo-meme/main/bootstrap.sh)"
+```
 The script prompts separately for passwords for player_one and player_two.
 
 Required post-install steps
@@ -31,10 +34,11 @@ as:
 
 SharedFiles
 Test before GUI login:
+```sh
 
 ssh player_one@0xC0RE.local
 ssh player_two@0xC0RE.local
-
+```
 ### Verify SMB access
 Open **System Settings → General → Sharing → File Sharing**.
 1. Confirm `SharedFiles` points to `/Users/Shared/Files`.
@@ -44,13 +48,12 @@ Open **System Settings → General → Sharing → File Sharing**.
 5. Enable the administrator, `player_one`, and `player_two` if macOS lists them.
 6. Enter each account’s password when macOS requests it.
 7. Optionally enable **Only allow SMB encrypted connections**.
-8. 
+
 From another computer, authenticate as `player_one` and then `player_two`:
+```sh
 
 smb://0xC0RE.local/SharedFiles
-
-
-From another Mac, connect to:
+```
 
 smb://0xC0RE.local/SharedFiles
 Configure Little Snitch and Proton VPN to allow LAN access on 10.1.10.0/24.
@@ -65,6 +68,11 @@ Open the DMG and launch its installer.
 When prompted, authenticate using the administrator account.
 Finish Fusion’s first launch while logged into player_two.
 Log out and back into player_two; Fusion will then be added to that user’s Dock.
+Using each account, create, edit, rename, and delete a test file created by the
+other account. Repeat after rebooting while the Mac remains at the login window.
+
+NOTE: On Apple Silicon, Fusion runs ARM guests such as Windows 11 ARM and ARM64 Linux.
+Rosetta does not allow Fusion to run x86 virtual machines.
 
 ## If setup stops
 A Homebrew cask failure stops the bootstrap before later configuration steps.
