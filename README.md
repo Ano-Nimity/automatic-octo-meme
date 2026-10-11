@@ -2,7 +2,16 @@
 mac reimaging
 
 Upload and run
-Upload the four files to main, preserving scripts/common.sh.
+
+## Repository structure
+
+.
+├── Brewfile
+├── README.md
+├── bootstrap.sh
+├── configure.sh
+└── scripts/
+    └── common.sh
 
 Complete Setup Assistant, skip Apple ID, create the administrator account, connect Ethernet, then run:
 
@@ -25,6 +34,22 @@ Test before GUI login:
 
 ssh player_one@0xC0RE.local
 ssh player_two@0xC0RE.local
+
+### Verify SMB access
+Open **System Settings → General → Sharing → File Sharing**.
+1. Confirm `SharedFiles` points to `/Users/Shared/Files`.
+2. Disable guest access.
+3. Remove any automatically added Public folders you do not want exposed.
+4. Open **Options** or **Windows File Sharing**.
+5. Enable the administrator, `player_one`, and `player_two` if macOS lists them.
+6. Enter each account’s password when macOS requests it.
+7. Optionally enable **Only allow SMB encrypted connections**.
+8. 
+From another computer, authenticate as `player_one` and then `player_two`:
+
+smb://0xC0RE.local/SharedFiles
+
+
 From another Mac, connect to:
 
 smb://0xC0RE.local/SharedFiles
@@ -40,3 +65,8 @@ Open the DMG and launch its installer.
 When prompted, authenticate using the administrator account.
 Finish Fusion’s first launch while logged into player_two.
 Log out and back into player_two; Fusion will then be added to that user’s Dock.
+
+## If setup stops
+A Homebrew cask failure stops the bootstrap before later configuration steps.
+Fix the reported application problem and rerun the same command. Existing
+standard accounts and completed configuration are detected and reused.
