@@ -145,7 +145,14 @@ if ! sudo /bin/launchctl print \
 fi
 
 warn "Toggle Screen Sharing off and on once in System Settings to grant Screen Recording."
+info "Restricting SMB access to the three local accounts"
 
+ensure_access_group \
+  com.apple.access_smb \
+  "$admin_user" \
+  "$standard_user" \
+  "$vm_user"
+  
 info "Creating the dedicated SharedFiles SMB share"
 
 share_group="mac-file-share"
