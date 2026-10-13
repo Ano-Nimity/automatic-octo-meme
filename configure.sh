@@ -359,13 +359,13 @@ for item in "${items[@]}"; do
   name="$(/usr/bin/basename "$item" .app)"
 
   /opt/homebrew/bin/dockutil \
-    --find "$name" \
-    --homedir "$HOME" \
-    >/dev/null 2>&1 ||
-    /opt/homebrew/bin/dockutil \
-      --add "$item" \
-      --no-restart \
-      --homedir "$HOME"
+   --find "$name" \
+   "$HOME" \
+   >/dev/null 2>&1 ||
+  /opt/homebrew/bin/dockutil \
+   --add "$item" \
+   --no-restart \
+   "$HOME"
 done
 
 /usr/bin/killall Dock 2>/dev/null || true
