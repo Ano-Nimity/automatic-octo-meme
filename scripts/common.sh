@@ -17,12 +17,16 @@ die() {
 }
 
 confirm() {
-  local prompt="${1:-Continue?}"
-  local reply
+ local prompt="${1:-Continue?}"
+ local reply
 
-  printf '%s [y/N] ' "$prompt" >/dev/tty
-  IFS= read -r reply </dev/tty || return 1
-  [[ "$reply" =~ ^[Yy]([Ee][Ss])?$ ]]
+ printf '%s [y/N] ' "$prompt" >/dev/tty
+ IFS= read -r reply </dev/tty
+
+ case "$reply" in
+  [yY]|[yY][eE][sS]) return 0 ;;
+  *) return 1 ;;
+ esac
 }
 
 pause() {
