@@ -13,7 +13,7 @@ brew "uv"
 brew "zoxide"
 
 # Future project prerequisites—installed but not started
-brew "kiwix-tools"
+#brew "kiwix-tools"
 brew "ollama"
 brew "poppler"
 brew "sqlite"
