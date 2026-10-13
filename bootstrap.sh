@@ -171,8 +171,6 @@ fi
 [[ -d "$expected_home" ]] ||
  die "Home directory was not created for ${username}."
 
-info "Existing standard ${username} account passed validation"
-return
     info "Existing standard ${username} account passed validation"
     return
   fi
