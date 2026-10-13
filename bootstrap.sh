@@ -164,7 +164,15 @@ ensure_standard_user() {
 
     [[ "$actual_shell" == "/bin/zsh" ]] ||
       die "Existing ${username} has unexpected shell: ${actual_shell}"
+if [[ ! -d "$expected_home" ]]; then
+ sudo /usr/sbin/createhomedir -c -u "$username"
+fi
 
+[[ -d "$expected_home" ]] ||
+ die "Home directory was not created for ${username}."
+
+info "Existing standard ${username} account passed validation"
+return
     info "Existing standard ${username} account passed validation"
     return
   fi
@@ -182,6 +190,12 @@ EOF
     -password -
 
   user_exists "$username" || die "${username} was not created."
+  if [[ ! -d "$expected_home" ]]; then
+ sudo /usr/sbin/createhomedir -c -u "$username"
+fi
+
+[[ -d "$expected_home" ]] ||
+ die "Home directory was not created for ${username}."
 }
 
 info "Creating the standard user accounts"
