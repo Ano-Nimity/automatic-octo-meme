@@ -399,17 +399,54 @@ EOF
       sudo -u "$user" HOME="$home" "$dock_script"
     fi
   fi
-}
+
+  # Set up monthly Homebrew update reminder for the user
+    local user_launch_agents="$home/Library/LaunchAgents"
+    mkdir -p "$user_launch_agents"
+
+    cat << EOF > "$user_launch_agents/com.user.brewreminder.plist"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.brewreminder</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+<string>echo "tmutil snapshot &amp;&amp; brew update &amp;&amp; brew upgrade &amp;&amp; brew cleanup" | pbcopy &amp;&amp; osascript -e 'display alert "Homebrew Monthly Update" message "The update command has been copied to your clipboard.\n\nOpen Terminal and press Cmd+V to run:\ntmutil snapshot &amp;&amp; brew update &amp;&amp; brew upgrade &amp;&amp; brew cleanup" buttons {"OK"} default button "OK"'</string>    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Day</key>
+        <integer>1</integer>
+        <key>Hour</key>
+        <integer>10</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+</dict>
+</plist>
+EOF
+
+    # Set proper ownership and permissions
+    chown "$user:staff" "$user_launch_agents/com.user.brewreminder.plist"
+    chmod 644 "$user_launch_agents/com.user.brewreminder.plist"
+
+    # Load into the user's active GUI domain if currently logged in
+    if [[ "$(console_user)" == "$user" ]]; then
+        sudo -u "$user" launchctl unload "$user_launch_agents/com.user.brewreminder.plist" 2>/dev/null || true
+        sudo -u "$user" launchctl load "$user_launch_agents/com.user.brewreminder.plist"
+    fi
+    }
 
 brew_env || true
-
 apply_user_preferences "$admin_user"
 apply_user_preferences "$standard_user"
 apply_user_preferences "$vm_user"
 
 if [[ "$(console_user)" == "$admin_user" ]]; then
-  /usr/bin/killall Finder Dock SystemUIServer \
-    2>/dev/null || true
+    /usr/bin/killall Finder Dock SystemUIServer 2>/dev/null || true
 fi
 
 info "System configuration complete"
