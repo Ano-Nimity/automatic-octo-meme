@@ -44,10 +44,11 @@ cask "betterdisplay"
 cask "keka"
 cask "pearcleaner"
 cask "thaw"
+cask "homebrew-app"
 
 # Terminal and containers
 cask "iterm2"
-cask "orbstack"
+cask "docker"
 
 # VMware Fusion is installed manually under player_two because Broadcom
 # requires a portal login and currently provides no Homebrew cask.
