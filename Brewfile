@@ -42,7 +42,7 @@ cask "tor-browser"
 # System utilities
 cask "betterdisplay"
 cask "keka"
-cask "pearcleaner"
+cask "purge" # pearcleaner was replaced because purge is more like Revo
 cask "thaw"
 cask "homebrew-app"
 
@@ -60,10 +60,10 @@ cask "wallspace"
 
 # Media
 cask "iina"
-cask "obs"
+# cask "obs"
 
 # Quick Look and inspection
-cask "betterzip"
+#cask "betterzip" the quicklook feature is bundled into the full commercial program now
 cask "qlmarkdown"
 cask "qlstephen"
 cask "quicklook-video"
