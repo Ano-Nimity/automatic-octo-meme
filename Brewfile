@@ -45,7 +45,9 @@ cask "keka"
 cask "purge" # pearcleaner was replaced because purge is more like Revo
 cask "thaw"
 cask "homebrew-app"
-brew install --cask writronic/tap/macursor
+tap "writronic/tap"
+cask "macursor"
+cask "rsyncui"
 
 # Terminal and containers
 cask "iterm2"
