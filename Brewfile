@@ -48,6 +48,7 @@ cask "homebrew-app"
 tap "writronic/tap"
 cask "macursor"
 cask "rsyncui"
+brew "bitwarden-cli"
 
 # Terminal and containers
 cask "iterm2"
@@ -57,8 +58,7 @@ cask "docker"
 # requires a portal login and currently provides no Homebrew cask.
 
 # Launchers and desktop tools
-cask "cardinal-search"
-cask "maccy"
+cask "raycast"
 cask "wallspace"
 
 # Media
