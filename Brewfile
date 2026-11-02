@@ -49,6 +49,7 @@ tap "writronic/tap"
 cask "macursor"
 cask "rsyncui"
 brew "bitwarden-cli"
+cask "kde-connect" 
 
 # Terminal and containers
 cask "iterm2"
