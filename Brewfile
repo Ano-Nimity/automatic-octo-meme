@@ -37,7 +37,7 @@ cask "signal"
 # Browsers
 cask "librewolf"
 cask "orion"
-cask "tor-browser"
+#cask "tor-browser"
 
 # System utilities
 cask "betterdisplay"
@@ -45,9 +45,9 @@ cask "keka"
 cask "purge" # pearcleaner was replaced because purge is more like Revo
 cask "thaw"
 cask "homebrew-app"
-tap "writronic/tap"
-cask "macursor"
+cask "writronic/tap/macursor"
 cask "rsyncui"
+cask "keepingyouawake"
 brew "bitwarden-cli"
 cask "kde-connect" 
 
